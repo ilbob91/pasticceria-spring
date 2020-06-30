@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -17,6 +18,7 @@ public class Ordinazione {
 	private Long id;
 	@ManyToOne
 	private Cliente cliente;
+
 	@OneToMany(mappedBy = "dolce")
 	private List<Dolce> listaDolci;
 	private LocalDateTime consegna;
@@ -60,13 +62,13 @@ public class Ordinazione {
 	}
 
 	public void setCosto() {
-		
-		double spesa=0;
+
+		double spesa = 0;
 		for (Dolce dolce : this.listaDolci) {
-			
-			spesa=spesa+dolce.getCosto();			
-		}		
-		spesa=(spesa*sconto)/100;		
+
+			spesa = spesa + dolce.getCosto();
+		}
+		spesa = (spesa * sconto) / 100;
 		this.costo = spesa;
 	}
 

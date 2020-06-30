@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Ingrediente {
@@ -12,6 +14,16 @@ public class Ingrediente {
 	private Long id;
 	private String nome;
 	private double costo;
+	@ManyToOne
+	private Ricetta ricetta;
+
+	public Ricetta getRicetta() {
+		return ricetta;
+	}
+
+	public void setRicetta(Ricetta ricetta) {
+		this.ricetta = ricetta;
+	}
 
 	public Long getId() {
 		return id;

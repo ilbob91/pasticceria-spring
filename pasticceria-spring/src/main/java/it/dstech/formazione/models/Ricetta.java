@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,7 +17,7 @@ public class Ricetta {
 	private String nome;
 	private String tempo;
 	private int difficolta;
-	@OneToMany(mappedBy = "ingredienti")
+	 @OneToMany(mappedBy = "ingredienti")
 	private List<Ingrediente> listaIngredienti;
 	private String descrizione;
 	private double costo;
