@@ -17,7 +17,7 @@ public class Ricetta {
 	private String tempo;
 	private int difficolta;
 	@OneToMany(mappedBy = "ingredienti")
-	private List<Ingredienti> listaIngredienti;
+	private List<Ingrediente> listaIngredienti;
 	private String descrizione;
 	private double costo;
 
@@ -53,11 +53,11 @@ public class Ricetta {
 		this.difficolta = difficolta;
 	}
 
-	public List<Ingredienti> getListaIngredienti() {
+	public List<Ingrediente> getListaIngredienti() {
 		return listaIngredienti;
 	}
 
-	public void setListaIngredienti(List<Ingredienti> listaIngredienti) {
+	public void setListaIngredienti(List<Ingrediente> listaIngredienti) {
 		this.listaIngredienti = listaIngredienti;
 	}
 
@@ -75,9 +75,9 @@ public class Ricetta {
 
 	public void setCosto() {
 		double somma = 0;
-		for (Ingredienti ingredienti : listaIngredienti) {
+		for (Ingrediente ingredienti : listaIngredienti) {
 			somma += ingredienti.getCosto();
 		}
-		this.costo = somma + (somma * 0.1);
+		this.costo = somma + somma * 0.1;
 	}
 }
