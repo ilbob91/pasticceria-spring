@@ -6,13 +6,13 @@ import it.dstech.formazione.models.Dolce;
 
 public interface DolceServiceDAO {
 
-	Dolce add(Dolce cliente);
+	Dolce add(Dolce dolce);
 
 	List<Dolce> findAll();
 
-	void remove(Dolce cliente);
+	void remove(Dolce dolce);
 
-	Dolce edit(Dolce cliente);
+	Dolce edit(Dolce dolce);
 
 	Dolce findById(Long Id);
 }

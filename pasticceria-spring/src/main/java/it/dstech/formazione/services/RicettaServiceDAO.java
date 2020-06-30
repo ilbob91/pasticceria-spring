@@ -6,13 +6,13 @@ import it.dstech.formazione.models.Ricetta;
 
 public interface RicettaServiceDAO {
 
-	Ricetta add(Ricetta cliente);
+	Ricetta add(Ricetta ricetta);
 
 	List<Ricetta> findAll();
 
-	void remove(Ricetta cliente);
+	void remove(Ricetta ricetta);
 
-	Ricetta edit(Ricetta cliente);
+	Ricetta edit(Ricetta ricetta);
 
-	Ricetta findById(Long Id);
+	Ricetta findById(Long id);
 }

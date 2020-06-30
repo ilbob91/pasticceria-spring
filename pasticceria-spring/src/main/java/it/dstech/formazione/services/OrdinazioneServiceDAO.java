@@ -6,13 +6,13 @@ import it.dstech.formazione.models.Ordinazione;
 
 public interface OrdinazioneServiceDAO {
 
-	Ordinazione add(Ordinazione cliente);
+	Ordinazione add(Ordinazione ordinazione);
 
 	List<Ordinazione> findAll();
 
-	void remove(Ordinazione cliente);
+	void remove(Ordinazione ordinazione);
 
-	Ordinazione edit(Ordinazione cliente);
+	Ordinazione edit(Ordinazione ordinazione);
 
 	Ordinazione findById(Long Id);
 }

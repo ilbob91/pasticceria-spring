@@ -59,8 +59,15 @@ public class Ordinazione {
 		return costo;
 	}
 
-	public void setCosto(double costo) {
-		this.costo = costo;
+	public void setCosto() {
+		
+		double spesa=0;
+		for (Dolce dolce : this.listaDolci) {
+			
+			spesa=spesa+dolce.getCosto();			
+		}		
+		spesa=(spesa*sconto)/100;		
+		this.costo = spesa;
 	}
 
 	public double getSconto() {

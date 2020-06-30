@@ -6,13 +6,13 @@ import it.dstech.formazione.models.Ingrediente;
 
 public interface IngredienteServiceDAO {
 
-	Ingrediente add(Ingrediente cliente);
+	Ingrediente add(Ingrediente ingrediente);
 
 	List<Ingrediente> findAll();
 
-	void remove(Ingrediente cliente);
+	void remove(Ingrediente ingrediente);
 
-	Ingrediente edit(Ingrediente cliente);
+	Ingrediente edit(Ingrediente ingrediente);
 
 	Ingrediente findById(Long Id);
 }
