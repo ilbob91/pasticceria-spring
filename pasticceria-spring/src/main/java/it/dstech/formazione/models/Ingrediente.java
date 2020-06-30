@@ -14,7 +14,7 @@ public class Ingrediente {
 	private Long id;
 	private String nome;
 	private double costo;
-	@ManyToOne
+	@ManyToMany
 	private Ricetta ricetta;
 
 	public Ricetta getRicetta() {

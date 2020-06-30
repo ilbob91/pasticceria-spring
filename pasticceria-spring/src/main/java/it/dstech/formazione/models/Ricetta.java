@@ -17,7 +17,7 @@ public class Ricetta {
 	private String nome;
 	private String tempo;
 	private int difficolta;
-	 @OneToMany(mappedBy = "ingredienti")
+	 @OneToMany
 	private List<Ingrediente> listaIngredienti;
 	private String descrizione;
 	private double costo;
