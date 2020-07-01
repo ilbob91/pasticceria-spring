@@ -82,10 +82,10 @@ public class PasticceriaController {
 
 	}
 
-	
 	@GetMapping("/addDolce")
-	public String addDolce(Dolce dolce, Model mode,@RequestParam(value = "ricetta") long ricettaScelta) {
-		dolce.getListaRicetta().add((ricService.findById(ricettaScelta)));
+	public String addDolce(Dolce dolce, Model mode, @RequestParam(value = "id") long id) {
+		System.out.println(id);
+		
 		dolce.setCosto();
 		dolceService.add(dolce);
 		return "admin ";
@@ -110,7 +110,6 @@ public class PasticceriaController {
 
 	@PutMapping("/aggiungiRicetta")
 	public String aggiungiRicettaDolce(Dolce dolce, Ricetta ricetta, Model mode) {
-
 
 		dolceService.edit(dolce);
 		return " ";

@@ -92,5 +92,10 @@ public class Ricetta {
 	public void setDolce(Dolce dolce) {
 		this.dolce = dolce;
 	}
+
+	@Override
+	public String toString() {
+		return "Ricetta [id=" + id + ", nome=" + nome + ", tempo=" + tempo + "]";
+	}
 	
 }

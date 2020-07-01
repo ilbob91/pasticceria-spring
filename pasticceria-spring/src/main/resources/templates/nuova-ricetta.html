@@ -15,44 +15,52 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<div class="container my-5">
-            <h2 class="mb-5">Nuova Ricetta</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <form action="#" th:action="@{/addRicetta}" th:object="${ricetta}" method="get">
-                        <div class="row">
-                        <div class="form-group col-md-6">
-                                <label for="nome" class="col-form-label">Nome</label>
-                                <input type="text" th:field="*{nome}"  id="nome" placeholder="Nome">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="costo" class="col-form-label">Tempo</label>
-                                <input type="text" th:field="*{tempo}"  id="tempo" placeholder="tempo">
-                                </div>
-                                 <div class="form-group col-md-6">
-                                 <label for="difficolta" class="col-form-label">Difficoltà</label>
-                                <input type="number" th:field="*{difficolta}"  id="difficolta" min="1" max="5" placeholder="1-5">
-                            </div>
-                             <div class="form-group col-md-6">
-                                 <label for="descrizione" class="col-form-label">Descrizione</label>
-                                <input type="text" th:field="*{descrizione}"  id="descrizione"  placeholder="descrizione">
-                            </div>
-                            
-             
-               <th:block th:each="ingrediente : ${listaIngredienti}">
-               <div class="form-group col-md-6">
-                <input type="checkbox" name="ingrediente" th:value="${ingrediente.id}"/>
-                 <label th:text="${ingrediente.nome}"></label>
-                 </div>
-               </th:block>
-             
-                        </div>
-                        <div class="row"> 
-                            <div class="col-md-6 mt-5">
-                                <input type="submit" class="btn btn-primary" value="Aggiugngi Ricetta">
-                            </div>
-                        </div>    
-                    </form>
+	<div class="container my-5">
+		<h2 class="mb-5">Nuova Ricetta</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<form action="#" th:action="@{/addRicetta}" th:object="${ricetta}"
+					method="get">
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="nome" class="col-form-label">Nome</label> <input
+								type="text" th:field="*{nome}" id="nome" placeholder="Nome">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="costo" class="col-form-label">Tempo</label> <input
+								type="text" th:field="*{tempo}" id="tempo" placeholder="tempo">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="difficolta" class="col-form-label">Difficoltà</label>
+							<input type="number" th:field="*{difficolta}" id="difficolta"
+								min="1" max="5" placeholder="1-5">
+						</div>
+						<div class="form-group col-md-6">
+							<label for="descrizione" class="col-form-label">Descrizione</label>
+							<input type="text" th:field="*{descrizione}" id="descrizione"
+								placeholder="descrizione">
+						</div>
 
+
+						<th:block th:each="ingrediente : ${listaIngredienti}">
+							<div class="form-group col-md-6">
+								<input type="checkbox" name="ingrediente"
+									th:value="${ingrediente.id}" /> <label
+									th:text="${ingrediente.nome}"></label>
+							</div>
+						</th:block>
+
+					</div>
+					<div class="row">
+						<div class="col-md-6 mt-5">
+							<input type="submit" class="btn btn-primary"
+								value="Aggiugngi Ricetta">
+						</div>
+					</div>
+				</form>
+				</div>
+				</div>
+			</div>
+				
 </body>
 </html>
