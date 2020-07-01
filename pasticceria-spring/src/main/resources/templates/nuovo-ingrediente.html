@@ -19,7 +19,7 @@
             <h2 class="mb-5">Nuovo Ingrediente</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <form action="#" th:action="@{/addIngre}" th:object="${ingrediente}" method="get">
+                    <form action="#" th:action="@{/addIngre}" th:object="${ingrediente}" method="post">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="nome" class="col-form-label">Nome</label>
@@ -28,6 +28,10 @@
                             <div class="form-group col-md-6">
                                 <label for="costo" class="col-form-label">Costo</label>
                                 <input type="text" th:field="*{costo}"  id="costo" placeholder="Costo">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="presente" class="col-form-label">presente</label>
+                                <input type="text" th:field="*{presente}"  id="presente" placeholder="presente">
                             </div>
                         </div>
                         <div class="row">

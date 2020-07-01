@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Dolce {
@@ -16,8 +17,26 @@ public class Dolce {
 	private String nome;
 	private int quantita;
 	private double costo;
-	@OneToOne
+	@ManyToOne
 	private Ricetta ricetta;
+	@ManyToOne
+	private Dolce dolce;
+
+	
+	
+	
+	
+	public Dolce getDolce() {
+		return dolce;
+	}
+
+	public void setDolce(Dolce dolce) {
+		this.dolce = dolce;
+	}
+
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
 
 	public Long getId() {
 		return id;

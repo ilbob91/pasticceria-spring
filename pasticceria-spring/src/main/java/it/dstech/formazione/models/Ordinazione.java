@@ -19,7 +19,7 @@ public class Ordinazione {
 	@ManyToOne
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "dolce")
+	@OneToMany
 	private List<Dolce> listaDolci;
 	private LocalDateTime consegna;
 	private double costo;

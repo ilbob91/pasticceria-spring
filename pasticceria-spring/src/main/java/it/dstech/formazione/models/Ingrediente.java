@@ -1,5 +1,7 @@
 package it.dstech.formazione.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,15 +16,26 @@ public class Ingrediente {
 	private Long id;
 	private String nome;
 	private double costo;
+	private boolean presente;
 	@ManyToMany
-	private Ricetta ricetta;
+	private List<Ricetta> ricette;
 
-	public Ricetta getRicetta() {
-		return ricetta;
+	
+
+	public boolean isPresente() {
+		return presente;
 	}
 
-	public void setRicetta(Ricetta ricetta) {
-		this.ricetta = ricetta;
+	public void setPresente(boolean presente) {
+		this.presente = presente;
+	}
+
+	public List<Ricetta> getRicette() {
+		return ricette;
+	}
+
+	public void setRicette(List<Ricetta> ricette) {
+		this.ricette = ricette;
 	}
 
 	public Long getId() {
