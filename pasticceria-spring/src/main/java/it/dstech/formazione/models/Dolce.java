@@ -18,8 +18,8 @@ public class Dolce {
 	private String nome;
 	private int quantita;
 	private double costo;
-	@OneToOne
-	private Ricetta ricetta;
+	@OneToMany
+	private List<Ricetta> listaRicetta;
 
 	public void setCosto(double costo) {
 		this.costo = costo;
@@ -55,19 +55,21 @@ public class Dolce {
 
 	public void setCosto() {
 		double somma = 0;
-		List<Ingrediente> lista = this.ricetta.getListaIngredienti();
+		List<Ingrediente> lista = this.listaRicetta.get(0).getListaIngredienti();
 		for (Ingrediente ingredienti : lista) {
 			somma += ingredienti.getCosto();
 		}
 		this.costo = somma + somma * 0.2;
 	}
 
-	public Ricetta getRicetta() {
-		return ricetta;
+	public List<Ricetta> getListaRicetta() {
+		return listaRicetta;
 	}
 
-	public void setRicetta(Ricetta ricetta) {
-		this.ricetta = ricetta;
+	public void setListaRicetta(List<Ricetta> listaRicetta) {
+		this.listaRicetta = listaRicetta;
 	}
+
+	
 
 }
