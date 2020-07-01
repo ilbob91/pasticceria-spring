@@ -1,5 +1,7 @@
 package it.dstech.formazione.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +42,15 @@ public class PasticceriaController {
 	}
 
 	@GetMapping("/addRicetta")
-	public String addRicetta(Ricetta ricetta, Model mode) {
+	public String addRicetta(Ricetta ricetta, Model mode, @RequestParam(value = "ingrediente") long[] listIngredienti) {
+
+		if (listIngredienti != null) {
+			ricetta.setListaIngredienti(new ArrayList<>());
+			for (int i = 0; i < listIngredienti.length; i++) {
+				ricetta.getListaIngredienti().add(ingre.findById(listIngredienti[i]));
+			}
+		}
+
 		ricetta.setCosto();
 		ricService.add(ricetta);
 		return "admin";
@@ -72,18 +82,13 @@ public class PasticceriaController {
 
 	}
 
-	@RequestMapping("/newDolce")
-	public String newDolceForm(Model model) {
-		Dolce dolce = new Dolce();
-		model.addAttribute("dolce", dolce);
-		return "nuovo-dolce";
-	}
-
+	
 	@GetMapping("/addDolce")
-	public String addDolce(Dolce dolce, Model mode) {
+	public String addDolce(Dolce dolce, Model mode,@RequestParam(value = "ricetta") String ricettaScelta) {
+		dolce.setRicetta(ricService.findById(Long.parseLong(ricettaScelta)));
 		dolce.setCosto();
 		dolceService.add(dolce);
-		return " ";
+		return "admin ";
 
 	}
 
@@ -140,9 +145,13 @@ public class PasticceriaController {
 		case 1:
 			Ricetta ricetta = new Ricetta();
 			model.addAttribute("ricetta", ricetta);
+			model.addAttribute("listaIngredienti", ingre.findAll());
 			return "nuova-ricetta";
 
 		case 2:
+			Dolce dolce = new Dolce();
+			model.addAttribute("dolce", dolce);
+			model.addAttribute("listaRicette", ricService.findAll());
 			return "nuovo-dolce";
 
 		}
