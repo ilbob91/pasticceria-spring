@@ -16,7 +16,7 @@ public class Ingrediente {
 	private String nome;
 	private double costo;
 	private boolean presente;
-	@ManyToMany
+	@ManyToMany(mappedBy="listaIngredienti")
 	private List<Ricetta> ricette;
 
 	public boolean isPresente() {

@@ -71,7 +71,7 @@ public class CassaController {
 		
 		cliente.getListaOrdinazioni().add(ordinazione);
 		
-		clienteService.add(cliente);
+	clienteService.add(cliente);
 		model.addAttribute("cliente",cliente);
 
 		return "cliente";

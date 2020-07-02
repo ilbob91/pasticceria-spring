@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -24,11 +26,13 @@ public class Ricetta {
 	private String tempo;
 	private int difficolta;
 	@ManyToMany
+	@JoinTable(name = "ricetta_ingrediente", joinColumns = @JoinColumn(name = "ricetta_id"), inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
+
 	private List<Ingrediente> listaIngredienti;
 	private String descrizione;
 	private double costo;
-	@ManyToOne
-	private Dolce dolce;
+	@ManyToMany(mappedBy="ricetta")
+	private List<Dolce> dolce;
 
 	public Long getId() {
 		return id;
@@ -94,11 +98,11 @@ public class Ricetta {
 		this.costo = somma + somma * 0.1;
 	}
 
-	public Dolce getDolce() {
+	public List<Dolce> getDolce() {
 		return dolce;
 	}
 
-	public void setDolce(Dolce dolce) {
+	public void setDolce(List<Dolce> dolce) {
 		this.dolce = dolce;
 	}
 

@@ -27,7 +27,8 @@ public class Ordinazione {
 
 	private List<Cliente> cliente;
 
-	@OneToMany
+	@ManyToMany
+	@JoinTable(name = "ordinazione_dolce", joinColumns = @JoinColumn(name = "ordinazione_id"), inverseJoinColumns = @JoinColumn(name = "dolce_id"))
 	private List<Dolce> listaDolci;
 	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
