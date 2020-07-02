@@ -48,7 +48,7 @@ public class ClienteServiceDAOImpl implements ClienteServiceDAO {
 
 	@Override
 	public Cliente findById(Long id) {
-		return findById(id);
+		return repo.findById(id).get();
 	}
 
 }

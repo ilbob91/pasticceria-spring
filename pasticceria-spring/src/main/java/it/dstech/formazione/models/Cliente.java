@@ -6,8 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Cliente {
@@ -16,7 +15,7 @@ public class Cliente {
 	private Long id;
 	private String nome;
 	private String cognome;
-	@OneToMany
+	@ManyToMany
 	private List<Ordinazione> listaOrdinazioni;
 	public Long getId() {
 		return id;
@@ -41,6 +40,18 @@ public class Cliente {
 	}
 	public void setListaOrdinazioni(List<Ordinazione> listaOrdinazioni) {
 		this.listaOrdinazioni = listaOrdinazioni;
+	}
+	
+	public double costoTolale() {
+		
+		double costo=0;
+		for (Ordinazione ordinazione : listaOrdinazioni) {
+			
+			costo=costo+ordinazione.getCosto();
+		}
+		
+		return costo;
+		
 	}
 	
 }

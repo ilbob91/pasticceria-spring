@@ -47,9 +47,10 @@ public class PasticceriaController {
 			for (int i = 0; i < listIngredienti.length; i++) {
 				ricetta.getListaIngredienti().add(ingre.findById(listIngredienti[i]));
 			}
+			ricetta.trovaCosto();
+
 		}
 
-		ricetta.trovaCosto();
 		ricService.add(ricetta);
 		return "admin";
 
@@ -82,11 +83,12 @@ public class PasticceriaController {
 
 	@PostMapping("/addDolce")
 	public String addDolce(Dolce dolce, Model mode, @RequestParam(value = "id") long id) {
-		System.out.println(id);
+		
+		dolce.setRicetta(new ArrayList<Ricetta>());
 		dolce.getRicetta().add(ricService.findById(id));
 		dolce.trovaCosto();
 		dolceService.add(dolce);
-		return "admin ";
+		return "admin";
 
 	}
 

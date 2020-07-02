@@ -8,19 +8,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Ordinazione {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToOne
-	private Cliente cliente;
+	@ManyToMany
+	private List<Cliente> cliente;
 
 	@OneToMany
 	private List<Dolce> listaDolci;
+	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime consegna;
 	private double costo;
 	private double sconto;
@@ -33,11 +40,13 @@ public class Ordinazione {
 		this.id = id;
 	}
 
-	public Cliente getCliente() {
+	
+
+	public List<Cliente> getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(List<Cliente> cliente) {
 		this.cliente = cliente;
 	}
 
@@ -61,7 +70,13 @@ public class Ordinazione {
 		return costo;
 	}
 
-	public void setCosto() {
+	
+	
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
+
+	public void trovaCosto() {
 
 		double spesa = 0;
 		for (Dolce dolce : this.listaDolci) {

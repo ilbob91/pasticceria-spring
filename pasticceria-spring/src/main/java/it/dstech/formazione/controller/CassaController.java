@@ -1,5 +1,7 @@
 package it.dstech.formazione.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ public class CassaController {
 	private OrdinazioneServiceDAO ordinazioneService;
 	@Autowired
 	private DolceServiceDAO dolceService;
+	
 
 	@DeleteMapping("/deleteCliente")
 	public String deleteCliente(Cliente cliente, Model model) {
@@ -51,10 +54,26 @@ public class CassaController {
 	}
 
 	@PostMapping("/addOrdinazione")
-	public String addOrdinazione(Ordinazione ordinazioneiente, Model model) {
+	public String addOrdinazione(Ordinazione ordinazione, Model model,@RequestParam("idCliente") String id,@RequestParam(value = "dolce") long[] listDolci) {
 
-		ordinazioneService.add(ordinazioneiente);
-		return "";
+		if (listDolci != null) {
+			ordinazione.setListaDolci(new ArrayList<>());
+			for (int i = 0; i < listDolci.length; i++) {
+				ordinazione.getListaDolci().add(dolceService.findById(listDolci[i]));
+			}
+			ordinazione.trovaCosto();
+		}
+		Cliente cliente=clienteService.findById(Long.parseLong(id));
+		ordinazione.setCliente(cliente);
+		ordinazioneService.add(ordinazione);
+
+		
+		cliente.getListaOrdinazioni().add(ordinazione);
+		
+		clienteService.edit(cliente);
+		model.addAttribute("cliente",cliente);
+
+		return "cliente";
 
 	}
 
@@ -78,7 +97,7 @@ public class CassaController {
 	public String aggiungiDolceOrdinazione(Ordinazione ordinazione, Dolce dolce, Model model) {
 
 		ordinazione.getListaDolci().add(dolce);
-		ordinazione.setCosto();
+		ordinazione.trovaCosto();
 		ordinazioneService.edit(ordinazione);
 		return "";
 
@@ -92,6 +111,7 @@ public class CassaController {
 
 		case 0:
 			if (cliente != null) {
+				model.addAttribute("listaOrdinazioni", ordinazioneService.findAll());
 				model.addAttribute(cliente);
 				return "cliente";
 			}
@@ -114,9 +134,10 @@ public class CassaController {
 	}
 
 	@PostMapping("/azioneCliente")
-	public String azione(@RequestParam("cliente") String id, Model model) {
+	public String azione(@RequestParam("cliente") long id, Model model) {
 		Ordinazione ordinazione = new Ordinazione();
-		model.addAttribute("cliente", clienteService.findById(Long.parseLong(id)));
+		
+		model.addAttribute("cliente",id);
 		model.addAttribute("listaDolci", dolceService.findAll());
 		model.addAttribute("ordinazione", ordinazione);
 		return "nuova-ordinazione";
