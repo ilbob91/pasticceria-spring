@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -31,7 +30,7 @@ public class Ricetta {
 	private List<Ingrediente> listaIngredienti;
 	private String descrizione;
 	private double costo;
-	@ManyToMany(mappedBy="ricetta")
+	@ManyToMany(mappedBy = "ricetta")
 	private List<Dolce> dolce;
 
 	public Long getId() {

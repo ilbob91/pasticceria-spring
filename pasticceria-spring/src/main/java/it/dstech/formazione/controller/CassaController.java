@@ -26,7 +26,6 @@ public class CassaController {
 	private OrdinazioneServiceDAO ordinazioneService;
 	@Autowired
 	private DolceServiceDAO dolceService;
-	
 
 	@DeleteMapping("/deleteCliente")
 	public String deleteCliente(Cliente cliente, Model model) {
@@ -54,25 +53,29 @@ public class CassaController {
 	}
 
 	@PostMapping("/addOrdinazione")
-	public String addOrdinazione(Ordinazione ordinazione, Model model,@RequestParam("idCliente") String id,@RequestParam(value = "dolce") long[] listDolci) {
+	public String addOrdinazione(Ordinazione ordinazione, Model model, @RequestParam("idCliente") String id,
+			@RequestParam(value = "dolce") long[] listDolci) {
 
 		if (listDolci != null) {
 			ordinazione.setListaDolci(new ArrayList<>());
 			for (int i = 0; i < listDolci.length; i++) {
-				ordinazione.getListaDolci().add(dolceService.findById(listDolci[i]));
+				Dolce dolce = dolceService.findById(listDolci[i]);
+				ordinazione.getListaDolci().add(dolce);
+				dolce.setQuantita(dolce.getQuantita() - 1);
+				dolceService.edit(dolce);
 			}
 			ordinazione.trovaCosto();
 		}
-		Cliente cliente=clienteService.findById(Long.parseLong(id));
+		Cliente cliente = clienteService.findById(Long.parseLong(id));
 		ordinazione.setCliente(new ArrayList<Cliente>());
 		ordinazione.getCliente().add(cliente);
 		ordinazioneService.add(ordinazione);
 
-		
 		cliente.getListaOrdinazioni().add(ordinazione);
-		
-	clienteService.add(cliente);
-		model.addAttribute("cliente",cliente);
+
+		clienteService.add(cliente);
+		model.addAttribute("listaOrdinazioni", cliente.getListaOrdinazioni());
+		model.addAttribute("cliente", cliente);
 
 		return "cliente";
 
@@ -137,8 +140,8 @@ public class CassaController {
 	@PostMapping("/azioneCliente")
 	public String azione(@RequestParam("cliente") long id, Model model) {
 		Ordinazione ordinazione = new Ordinazione();
-		
-		model.addAttribute("cliente",id);
+
+		model.addAttribute("cliente", id);
 		model.addAttribute("listaDolci", dolceService.findAll());
 		model.addAttribute("ordinazione", ordinazione);
 		return "nuova-ordinazione";

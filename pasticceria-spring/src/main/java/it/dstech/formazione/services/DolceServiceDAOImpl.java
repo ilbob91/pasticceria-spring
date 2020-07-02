@@ -13,10 +13,10 @@ public class DolceServiceDAOImpl implements DolceServiceDAO {
 
 	@Autowired
 	private DolceRepository dolceRepo;
-	
+
 	@Override
 	public Dolce add(Dolce dolce) {
-		
+
 		dolceRepo.save(dolce);
 		return dolce;
 	}
@@ -28,17 +28,18 @@ public class DolceServiceDAOImpl implements DolceServiceDAO {
 
 	@Override
 	public void remove(Dolce dolce) {
-     dolceRepo.delete(dolce);		
+		dolceRepo.delete(dolce);
 	}
 
 	@Override
 	public Dolce edit(Dolce dolce) {
 		dolceRepo.save(dolce);
-		return dolce;	}
+		return dolce;
+	}
 
 	@Override
 	public Dolce findById(Long Id) {
-		
+
 		return dolceRepo.findById(Id).get();
 	}
 

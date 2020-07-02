@@ -30,9 +30,9 @@
                                 <input type="text" th:field="*{costo}"  id="costo" placeholder="Costo">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="presente" class="col-form-label">presente</label>
-                                <input type="text" th:field="*{presente}"  id="presente" placeholder="presente">
-                            </div>
+								<input type="radio" th:field="*{presente}" th:value="${true}" th:text="Presente"/>
+								<input type="radio" th:field="*{presente}" th:value="${false}" th:text="Non presente"/>
+							</div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mt-5">

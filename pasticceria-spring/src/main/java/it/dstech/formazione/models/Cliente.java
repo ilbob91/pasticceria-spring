@@ -60,7 +60,7 @@ public class Cliente {
 			double costo = 0;
 			for (Ordinazione ordinazione : listaOrdinazioni) {
 
-				costo = costo + ordinazione.getCosto();
+				costo += ordinazione.getCosto();
 			}
 
 			return costo;

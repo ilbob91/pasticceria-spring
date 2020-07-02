@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,16 +20,14 @@ public class Ordinazione {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToMany(mappedBy="listaOrdinazioni")
-	//@JoinTable(name = "ordinazione_cliente", joinColumns = @JoinColumn(name = "Ordinazione_id"), inverseJoinColumns = @JoinColumn(name = "Cliente_id"))
-
+	@ManyToMany(mappedBy = "listaOrdinazioni")
 	private List<Cliente> cliente;
 
 	@ManyToMany
 	@JoinTable(name = "ordinazione_dolce", joinColumns = @JoinColumn(name = "ordinazione_id"), inverseJoinColumns = @JoinColumn(name = "dolce_id"))
 	private List<Dolce> listaDolci;
-	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalDateTime consegna;
 	private double costo;
 	private double sconto;
@@ -43,8 +39,6 @@ public class Ordinazione {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 
 	public List<Cliente> getCliente() {
 		return cliente;
@@ -74,8 +68,6 @@ public class Ordinazione {
 		return costo;
 	}
 
-	
-	
 	public void setCosto(double costo) {
 		this.costo = costo;
 	}
@@ -87,7 +79,7 @@ public class Ordinazione {
 
 			spesa = spesa + dolce.getCosto();
 		}
-		spesa = (spesa * sconto) / 100;
+		spesa = spesa - spesa * sconto / 100;
 		this.costo = spesa;
 	}
 
