@@ -18,7 +18,7 @@ public class Cliente {
 	private String nome;
 	private String cognome;
 	@ManyToMany
-	@JoinTable(name = "cliente_ordinazione", joinColumns = @JoinColumn(name = "Cliente_id"), inverseJoinColumns = @JoinColumn(name = "Ordinazione_id"))
+	@JoinTable(name = "cliente_ordinazione", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "ordinazione_id"))
 	private List<Ordinazione> listaOrdinazioni;
 
 	public Long getId() {

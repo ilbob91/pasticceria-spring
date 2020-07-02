@@ -22,8 +22,8 @@ public class Ordinazione {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@ManyToMany
-	@JoinTable(name = "ordinazione_cliente", joinColumns = @JoinColumn(name = "Ordinazione_id"), inverseJoinColumns = @JoinColumn(name = "Cliente_id"))
+	@ManyToMany(mappedBy="listaOrdinazioni")
+	//@JoinTable(name = "ordinazione_cliente", joinColumns = @JoinColumn(name = "Ordinazione_id"), inverseJoinColumns = @JoinColumn(name = "Cliente_id"))
 
 	private List<Cliente> cliente;
 
