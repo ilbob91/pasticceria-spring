@@ -9,6 +9,8 @@ public interface DolceServiceDAO {
 	Dolce add(Dolce dolce);
 
 	List<Dolce> findAll();
+	
+	List<Dolce> findMaggioreZero();
 
 	void remove(Dolce dolce);
 

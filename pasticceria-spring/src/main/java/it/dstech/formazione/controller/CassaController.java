@@ -142,7 +142,7 @@ public class CassaController {
 		Ordinazione ordinazione = new Ordinazione();
 
 		model.addAttribute("cliente", id);
-		model.addAttribute("listaDolci", dolceService.findAll());
+		model.addAttribute("listaDolci", dolceService.findMaggioreZero());
 		model.addAttribute("ordinazione", ordinazione);
 		return "nuova-ordinazione";
 

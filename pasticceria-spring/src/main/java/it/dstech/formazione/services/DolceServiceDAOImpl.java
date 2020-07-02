@@ -1,5 +1,6 @@
 package it.dstech.formazione.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,20 @@ public class DolceServiceDAOImpl implements DolceServiceDAO {
 	public Dolce findById(Long Id) {
 
 		return dolceRepo.findById(Id).get();
+	}
+
+	@Override
+	public List<Dolce> findMaggioreZero() {
+		
+		List<Dolce> listaMaggiore= new ArrayList<>();
+		for (Dolce dolce : dolceRepo.findAll()) {
+			
+			if(dolce.getQuantita()>0) {
+				listaMaggiore.add(dolce);
+			}
+			
+		}
+		return listaMaggiore;
 	}
 
 }
