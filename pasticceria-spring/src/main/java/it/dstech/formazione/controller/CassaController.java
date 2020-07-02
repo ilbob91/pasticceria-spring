@@ -64,13 +64,14 @@ public class CassaController {
 			ordinazione.trovaCosto();
 		}
 		Cliente cliente=clienteService.findById(Long.parseLong(id));
-		ordinazione.setCliente(cliente);
+		ordinazione.setCliente(new ArrayList<Cliente>());
+		ordinazione.getCliente().add(cliente);
 		ordinazioneService.add(ordinazione);
 
 		
 		cliente.getListaOrdinazioni().add(ordinazione);
 		
-		clienteService.edit(cliente);
+		clienteService.add(cliente);
 		model.addAttribute("cliente",cliente);
 
 		return "cliente";

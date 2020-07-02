@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -22,6 +23,8 @@ public class Ordinazione {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ManyToMany
+	@JoinTable(name = "ordinazione_cliente", joinColumns = @JoinColumn(name = "Ordinazione_id"), inverseJoinColumns = @JoinColumn(name = "Cliente_id"))
+
 	private List<Cliente> cliente;
 
 	@OneToMany
