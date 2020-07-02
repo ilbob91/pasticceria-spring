@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.dstech.formazione.models.Dolce;
@@ -41,7 +39,7 @@ public class PasticceriaController {
 
 	}
 
-	@GetMapping("/addRicetta")
+	@PostMapping("/addRicetta")
 	public String addRicetta(Ricetta ricetta, Model mode, @RequestParam(value = "ingrediente") long[] listIngredienti) {
 
 		if (listIngredienti != null) {
@@ -51,7 +49,7 @@ public class PasticceriaController {
 			}
 		}
 
-		ricetta.setCosto();
+		ricetta.trovaCosto();
 		ricService.add(ricetta);
 		return "admin";
 
@@ -82,11 +80,11 @@ public class PasticceriaController {
 
 	}
 
-	@GetMapping("/addDolce")
+	@PostMapping("/addDolce")
 	public String addDolce(Dolce dolce, Model mode, @RequestParam(value = "id") long id) {
 		System.out.println(id);
-		
-		dolce.setCosto();
+		dolce.getRicetta().add(ricService.findById(id));
+		dolce.trovaCosto();
 		dolceService.add(dolce);
 		return "admin ";
 
@@ -121,7 +119,7 @@ public class PasticceriaController {
 		if ("admin".equalsIgnoreCase(scelta)) {
 			return "admin";
 		} else {
-			return "cliente";
+			return "loginRegistrazione";
 		}
 	}
 

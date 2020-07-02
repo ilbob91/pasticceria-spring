@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Ingrediente {
@@ -19,8 +18,6 @@ public class Ingrediente {
 	private boolean presente;
 	@ManyToMany
 	private List<Ricetta> ricette;
-
-	
 
 	public boolean isPresente() {
 		return presente;

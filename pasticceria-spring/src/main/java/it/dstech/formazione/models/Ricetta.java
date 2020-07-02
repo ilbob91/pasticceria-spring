@@ -6,9 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Ricetta {
@@ -16,9 +19,11 @@ public class Ricetta {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
+	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private String tempo;
 	private int difficolta;
-	 @OneToMany
+	@ManyToMany
 	private List<Ingrediente> listaIngredienti;
 	private String descrizione;
 	private double costo;
@@ -77,7 +82,11 @@ public class Ricetta {
 		return costo;
 	}
 
-	public void setCosto() {
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
+
+	public void trovaCosto() {
 		double somma = 0;
 		for (Ingrediente ingredienti : listaIngredienti) {
 			somma += ingredienti.getCosto();
@@ -97,5 +106,5 @@ public class Ricetta {
 	public String toString() {
 		return "Ricetta [id=" + id + ", nome=" + nome + ", tempo=" + tempo + "]";
 	}
-	
+
 }
