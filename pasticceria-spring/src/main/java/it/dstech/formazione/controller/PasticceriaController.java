@@ -142,5 +142,10 @@ public class PasticceriaController {
 		model.addAttribute("listaIngredienti", ingre.findAll());
 		return "edit-ingrediente";
 	}
+	@GetMapping("/indietroAdmin")
+	public String indietro(Model model) {
+		model.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
+		return "admin";
+	}
 
 }
