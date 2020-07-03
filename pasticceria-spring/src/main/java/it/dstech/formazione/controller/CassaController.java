@@ -1,11 +1,13 @@
 package it.dstech.formazione.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,7 +82,7 @@ public class CassaController {
 
 		case 0:
 			if (cliente != null) {
-				model.addAttribute("listaOrdinazioni", ordinazioneService.findAll());
+				model.addAttribute("listaOrdinazioni", cliente.getListaOrdinazioni());
 				model.addAttribute(cliente);
 				return "cliente";
 			}
@@ -111,5 +113,20 @@ public class CassaController {
 		model.addAttribute("ordinazione", ordinazione);
 		return "nuova-ordinazione";
 
+	}
+	@PostMapping("/viewDolci")
+	public String viewDolc(@RequestParam("id") long id, @RequestParam("idCliente") long idCliente,Model model) {
+	  Ordinazione ordinazione = ordinazioneService.findById(id);
+	  List<Dolce> lista = ordinazione.getListaDolci();
+	  model.addAttribute("listaDolci", lista);
+	  model.addAttribute("idCliente", idCliente);
+	  return "view-dolci";
+	}
+	@GetMapping("/indietro")
+	public String indietro(@RequestParam("idCliente") long id,Model model) {
+		Cliente cliente = clienteService.findById(id);
+		model.addAttribute("listaOrdinazioni", cliente.getListaOrdinazioni());
+		model.addAttribute("cliente", cliente);
+return "cliente";
 	}
 }

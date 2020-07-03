@@ -16,41 +16,31 @@
 </head>
 <body>
 
-	<form action="azioneAdmin" method="post">
-		<button type="submit" name="azione" value="0">Nuovo
-			Ingrediente</button>
-		<button type="submit" name="azione" value="1">Nuova Ricetta</button>
-		<button type="submit" name="azione" value="2">Nuovo dolce</button>
-<button type="submit" name="azione" value="3">Modifica
-			Ingrediente</button>
-	</form>
-
 	<br>
 
 	<table class="table table-striped table-responsive-md">
 		<thead>
 			<tr>
-				<th>Id Ordinazione</th>
+				<th>Nome</th>
 				<th>Costo</th>
-				<th>Sconto</th>
-				<th>Data Consegna</th>
+				<th>Presente</th>
 				<th>Modifica</th>
 			</tr>
 		</thead>
 		<tbody>
-			 <tr  th:each="ordinazione : ${listaOrdinazioni}">
-				<td th:text="${ordinazione.id}"></td>
-				<td th:text="${ordinazione.costo}"></td>
-				<td th:text="${ordinazione.sconto}"></td>
-				<td th:text="${ordinazione.consegna}"></td>
+			 <tr  th:each="ingredienti : ${listaIngredienti}">
+				<td th:text="${ingredienti.nome}"></td>
+				<td th:text="${ingredienti.costo}"></td>
+				<td th:text="${ingredienti.presente}"></td>
+			
 				
-				   <td th:if="${ordinazione.consegna == null }">
+				   <td>
 				  
-					<form action="consegna" method="post">
+					<form action="cambiaPresente" method="post">
 
-						<button type="submit" name="consegna">consegna</button>
+						<button type="submit" name="consegna">Modifica</button>
 						<input type="hidden" name="id" id="id"
-							th:value="${ordinazione.id}">
+							th:value="${ingredienti.id}">
 					</form>
 				</td>
 

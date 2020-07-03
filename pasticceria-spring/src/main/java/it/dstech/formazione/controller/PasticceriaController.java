@@ -121,11 +121,26 @@ public class PasticceriaController {
 		case 2:
 			Dolce dolce = new Dolce();
 			model.addAttribute("dolce", dolce);
-			model.addAttribute("listaRicette", ricService.findAll());
+			model.addAttribute("listaRicette", ricService.findPresenti());
 			return "nuovo-dolce";
-
+			
+		case 3:
+			model.addAttribute("listaIngredienti", ingre.findAll());
+			return "edit-ingrediente";
 		}
 		return "index";
+	}
+	@PostMapping("/cambiaPresente")
+	public String cambia(@RequestParam("id") long id, Model model) {
+		Ingrediente ingrediente = ingre.findById(id);
+		if (ingrediente.getPresente()) {
+			ingrediente.setPresente(false);
+		} else {
+			ingrediente.setPresente(true);
+		}
+		ingre.edit(ingrediente);
+		model.addAttribute("listaIngredienti", ingre.findAll());
+		return "edit-ingrediente";
 	}
 
 }

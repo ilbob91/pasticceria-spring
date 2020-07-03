@@ -19,7 +19,7 @@ public class Ingrediente {
 	@ManyToMany(mappedBy="listaIngredienti")
 	private List<Ricetta> ricette;
 
-	public boolean isPresente() {
+	public boolean getPresente() {
 		return presente;
 	}
 

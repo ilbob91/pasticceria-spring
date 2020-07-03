@@ -39,8 +39,14 @@ Totale costo: <p th:text ="${cliente.costoTolale()}" ></p>
 				<td th:text="${ordinazione.costo}"></td>
 				<td th:text="${ordinazione.sconto}"></td>
 				<td th:text="${ordinazione.consegna}"></td>
-				<td><a th:href="@{viewDolci/{id}(id=${ordinazione.id})}"
-					class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+				<td><form action="viewDolci" method="post">
+
+						<button type="submit" name="consegna">Dolci ordinati</button>
+						<input type="hidden" name="id" id="id"
+							th:value="${ordinazione.id}">
+							<input type="hidden" name="idCliente" id="idCliente"
+							th:value="${cliente.id}">
+					</form></td>
 
 			</tr>
 		</tbody>

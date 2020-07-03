@@ -15,4 +15,6 @@ public interface RicettaServiceDAO {
 	Ricetta edit(Ricetta ricetta);
 
 	Ricetta findById(Long id);
+	
+	List<Ricetta> findPresenti();
 }
