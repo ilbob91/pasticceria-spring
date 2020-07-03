@@ -1,6 +1,5 @@
 package it.dstech.formazione.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,11 @@ public class OrdinazioneServiceDAOImpl implements OrdinazioneServiceDAO {
 	@Override
 	public Ordinazione findById(Long id) {
 		return ordiRepo.findById(id).get();
+	}
+
+	@Override
+	public List<Ordinazione> findByOrderByConsegnaAsc() {
+		return ordiRepo.findByOrderByConsegnaAsc();
 	}
 
 	

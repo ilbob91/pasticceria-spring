@@ -15,12 +15,13 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	
+
 	<form action="azioneAdmin" method="post">
-		<button type="submit" name="azione" value="0">Nuovo Ingrediente</button>
+		<button type="submit" name="azione" value="0">Nuovo
+			Ingrediente</button>
 		<button type="submit" name="azione" value="1">Nuova Ricetta</button>
 		<button type="submit" name="azione" value="2">Nuovo dolce</button>
-		
+
 	</form>
 
 	<br>
@@ -29,7 +30,6 @@
 		<thead>
 			<tr>
 				<th>Cliente</th>
-				<th>Nome Dolce</th>
 				<th>Costo</th>
 				<th>Sconto</th>
 				<th>Data Consegna</th>
@@ -37,14 +37,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="ordinazioni : ${ordinazione}">
-				<td th:text="${ordinazione.cliente}"></td>
-				<td th:text="${ordinazione.listaDolci}"></td>
+			<tr th:each="ordinazione : ${listaOrdinazioni}">
+				<td th:text="${ordinazione.cliente.get(0).getNome()}"></td>
 				<td th:text="${ordinazione.costo}"></td>
 				<td th:text="${ordinazione.sconto}"></td>
 				<td th:text="${ordinazione.consegna}"></td>
-				<td><a th:href="@{edit/{id}(id=${ordinazione.id})}"
-					class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+				<td>
+				   <td th:if="${ordinazione.consegna == null }">
+				  
+					<form action="consegna" method="post">
+
+						<button type="submit" name="consegna">consegna</button>
+						<input type="hidden" name="id" id="id"
+							th:value="${ordinazione.id}">
+					</form>
+				</td>
+
 
 			</tr>
 		</tbody>

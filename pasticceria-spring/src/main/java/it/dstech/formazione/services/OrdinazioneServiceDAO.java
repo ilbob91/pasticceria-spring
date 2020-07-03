@@ -15,4 +15,7 @@ public interface OrdinazioneServiceDAO {
 	Ordinazione edit(Ordinazione ordinazione);
 
 	Ordinazione findById(Long Id);
+	
+	List<Ordinazione> findByOrderByConsegnaAsc();
+
 }

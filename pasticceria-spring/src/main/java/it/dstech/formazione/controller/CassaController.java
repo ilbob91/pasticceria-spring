@@ -43,15 +43,6 @@ public class CassaController {
 
 	}
 
-	@PutMapping("/aggiungiOrdinazione")
-	public String aggiungiOrdinazioneCliente(Cliente cliente, Ordinazione ordinazione, Model model) {
-
-		cliente.getListaOrdinazioni().add(ordinazione);
-		clienteService.edit(cliente);
-		return "";
-
-	}
-
 	@PostMapping("/addOrdinazione")
 	public String addOrdinazione(Ordinazione ordinazione, Model model, @RequestParam("idCliente") String id,
 			@RequestParam(value = "dolce") long[] listDolci) {
@@ -78,32 +69,6 @@ public class CassaController {
 		model.addAttribute("cliente", cliente);
 
 		return "cliente";
-
-	}
-
-	@DeleteMapping("/deleteOrdinazione")
-	public String deleteOrdinazione(Ordinazione ordinazioneiente, Model model) {
-
-		ordinazioneService.remove(ordinazioneiente);
-		return "";
-
-	}
-
-	@PutMapping("/editOrdinazione")
-	public String editOrdinazione(Ordinazione ordinazioneiente, Model model) {
-
-		ordinazioneService.edit(ordinazioneiente);
-		return "";
-
-	}
-
-	@PutMapping("/aggiungiDolce")
-	public String aggiungiDolceOrdinazione(Ordinazione ordinazione, Dolce dolce, Model model) {
-
-		ordinazione.getListaDolci().add(dolce);
-		ordinazione.trovaCosto();
-		ordinazioneService.edit(ordinazione);
-		return "";
 
 	}
 

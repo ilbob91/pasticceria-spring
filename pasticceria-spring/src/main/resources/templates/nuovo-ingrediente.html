@@ -30,8 +30,7 @@
                                 <input type="text" th:field="*{costo}"  id="costo" placeholder="Costo">
                             </div>
                             <div class="form-group col-md-6">
-								<input type="radio" th:field="*{presente}" th:value="${true}" th:text="Presente"/>
-								<input type="radio" th:field="*{presente}" th:value="${false}" th:text="Non presente"/>
+								<input type="checkbox" th:field="*{presente}" th:value="${true}" th:name="presente" th:text="presente" checked="checked"/>
 							</div>
                         </div>
                         <div class="row">

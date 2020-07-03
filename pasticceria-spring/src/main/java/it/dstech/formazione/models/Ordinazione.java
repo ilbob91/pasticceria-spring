@@ -26,8 +26,8 @@ public class Ordinazione {
 	@ManyToMany
 	@JoinTable(name = "ordinazione_dolce", joinColumns = @JoinColumn(name = "ordinazione_id"), inverseJoinColumns = @JoinColumn(name = "dolce_id"))
 	private List<Dolce> listaDolci;
-	@JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	@JsonFormat(pattern = "dd-MM-yyyy ")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDateTime consegna;
 	private double costo;
 	private double sconto;

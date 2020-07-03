@@ -1,8 +1,10 @@
 package it.dstech.formazione.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import it.dstech.formazione.models.Dolce;
 import it.dstech.formazione.models.Ingrediente;
+import it.dstech.formazione.models.Ordinazione;
 import it.dstech.formazione.models.Ricetta;
 import it.dstech.formazione.services.DolceServiceDAO;
 import it.dstech.formazione.services.IngredienteServiceDAO;
@@ -34,7 +37,7 @@ public class PasticceriaController {
 	@PostMapping("/addIngre")
 	public String addIngrediente(Ingrediente ingrediente, Model mode) {
 		ingre.add(ingrediente);
-		mode.addAttribute("ordinazioni", ordinazioneService.findAll());
+		mode.addAttribute("listaOrdinazioni",ordinazioneService.findByOrderByConsegnaAsc() );
 		return "admin";
 
 	}
@@ -52,35 +55,13 @@ public class PasticceriaController {
 		}
 
 		ricService.add(ricetta);
+		mode.addAttribute("listaOrdinazioni",ordinazioneService.findByOrderByConsegnaAsc() );
+
 		return "admin";
 
 	}
 
-	@PutMapping("/aggiungiIngrediente")
-	public String aggiungiIngrediente(Ricetta ricetta, Ingrediente ingrediente, Model mode) {
-
-		ricetta.getListaIngredienti().add(ingrediente);
-		ricService.edit(ricetta);
-		return " ";
-
-	}
-
-	@PutMapping("/editRicetta")
-	public String editRicetta(Ricetta ricetta, Model mode) {
-
-		ricService.edit(ricetta);
-		return " ";
-
-	}
-
-	@DeleteMapping("deleteRicetta")
-	public String deleteRicetta(Ricetta ricetta, Model mode) {
-
-		ricService.remove(ricetta);
-		return " ";
-
-	}
-
+	
 	@PostMapping("/addDolce")
 	public String addDolce(Dolce dolce, Model mode, @RequestParam(value = "id") long id) {
 		
@@ -88,37 +69,16 @@ public class PasticceriaController {
 		dolce.getRicetta().add(ricService.findById(id));
 		dolce.trovaCosto();
 		dolceService.add(dolce);
+		mode.addAttribute("listaOrdinazioni",ordinazioneService.findByOrderByConsegnaAsc() );
+
 		return "admin";
 
 	}
-
-	@DeleteMapping("deleteDolce")
-	public String deleteDolce(Dolce dolce, Model mode) {
-
-		dolceService.remove(dolce);
-		return " ";
-
-	}
-
-	@PutMapping("/editDolce")
-	public String editDolce(Dolce dolce, Model mode) {
-
-		dolceService.edit(dolce);
-		return " ";
-
-	}
-
-	@PutMapping("/aggiungiRicetta")
-	public String aggiungiRicettaDolce(Dolce dolce, Ricetta ricetta, Model mode) {
-
-		dolceService.edit(dolce);
-		return " ";
-
-	}
-
+	
 	@GetMapping("/scelta")
-	public String scelta(@RequestParam("scelta") String scelta) {
+	public String scelta(@RequestParam("scelta") String scelta,Model model) {
 		if ("admin".equalsIgnoreCase(scelta)) {
+			model.addAttribute("listaOrdinazioni",ordinazioneService.findByOrderByConsegnaAsc());
 			return "admin";
 		} else {
 			return "loginRegistrazione";
@@ -131,6 +91,17 @@ public class PasticceriaController {
 		return "index";
 
 	}
+	@PostMapping("/consegna")
+	public String consegna(@RequestParam("id") long id,Model model) {
+
+		Ordinazione ordinazione=ordinazioneService.findById(id);
+		ordinazione.setConsegna(LocalDateTime.now());
+		ordinazioneService.edit(ordinazione);
+		model.addAttribute("listaOrdinazioni",ordinazioneService.findByOrderByConsegnaAsc());		
+		return "admin";
+
+	}
+
 
 	@PostMapping("/azioneAdmin")
 	public String azione(@RequestParam("azione") int scelta, Model model) {
