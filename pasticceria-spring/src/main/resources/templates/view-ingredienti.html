@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Cliente</title>
+<title>Ingrediente</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -15,14 +15,26 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<form action="azioneAccesso" method="post">
-		<input type="text" name="nome" id="nome" placeholder="Nome">
-		<input type="text" name="cognome" id="cognome" placeholder="Cognome">
-		<button type="submit" name="azione" value="0">Sign in</button>
-		<button type="submit" name="azione" value="1">Register</button>
-	</form>
-<form action="home">
-<button type="submit"class="btn btn-secondary">Torna in Home</button>
+         <table class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Costo</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			 <tr  th:each="ingrediente : ${listaIngredienti}">
+				<td th:text="${ingrediente.nome}"></td>
+				<td th:text="${ingrediente.costo}"></td>
+				
+				</tr>
+				</tbody>
+				</table>
+                    
+                    <br><br>
+				<form action="indietroAdmin">
+<button type="submit"class="btn btn-secondary">Indietro</button>
 </form>	
 </body>
 </html>

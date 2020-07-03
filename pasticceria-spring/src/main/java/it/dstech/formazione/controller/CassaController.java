@@ -129,4 +129,5 @@ public class CassaController {
 		model.addAttribute("cliente", cliente);
 return "cliente";
 	}
+	
 }

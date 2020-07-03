@@ -2,6 +2,7 @@ package it.dstech.formazione.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -110,12 +111,14 @@ public class PasticceriaController {
 		case 0:
 			Ingrediente ingrediente = new Ingrediente();
 			model.addAttribute("ingrediente", ingrediente);
+			model.addAttribute("listaIngredienti", ingre.findAll());
 			return "nuovo-ingrediente";
 
 		case 1:
 			Ricetta ricetta = new Ricetta();
 			model.addAttribute("ricetta", ricetta);
 			model.addAttribute("listaIngredienti", ingre.findAll());
+			model.addAttribute("listaRicette",ricService.findAll());
 			return "nuova-ricetta";
 
 		case 2:
@@ -147,5 +150,17 @@ public class PasticceriaController {
 		model.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
 		return "admin";
 	}
+	@PostMapping("/viewIngredienti")
+	public String viewDolc(@RequestParam("id") long id,Model model) {
+	  Ricetta ricetta = ricService.findById(id);
+	  List<Ingrediente> lista = ricetta.getListaIngredienti();
+	  model.addAttribute("listaIngredienti", lista);
+	 
+	  return "view-ingredienti";
 
+}
+	@GetMapping("/home")
+	public String home(Model model) {
+		return "index";
+	}
 }
