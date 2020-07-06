@@ -40,6 +40,7 @@ public class PasticceriaController {
 	public String addIngrediente(Ingrediente ingrediente, Model mode) {
 		ingre.add(ingrediente);
 		mode.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
+		mode.addAttribute("listaRicette", ricService.findAll());
 		return "admin";
 
 	}
@@ -58,6 +59,7 @@ public class PasticceriaController {
 
 		ricService.add(ricetta);
 		mode.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
+		mode.addAttribute("listaRicette", ricService.findAll());
 		LOGGER.info("Nuova ricetta creata");
 		return "admin";
 
@@ -71,7 +73,8 @@ public class PasticceriaController {
 		dolce.trovaCosto();
 		dolceService.add(dolce);
 		mode.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
-		LOGGER.info("Nuova dolce aggiunto");
+		mode.addAttribute("listaRicette", ricService.findAll());
+		LOGGER.info(String.format("Nuova dolce aggiunto, è %s", dolce.getNome()));
 		return "admin";
 
 	}
@@ -80,6 +83,7 @@ public class PasticceriaController {
 	public String scelta(@RequestParam("scelta") String scelta, Model model) {
 		if ("admin".equalsIgnoreCase(scelta)) {
 			model.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
+			model.addAttribute("listaRicette", ricService.findAll());
 			return "admin";
 		} else {
 			return "loginRegistrazione";
@@ -100,6 +104,7 @@ public class PasticceriaController {
 		ordinazione.setConsegna(LocalDateTime.now());
 		ordinazioneService.edit(ordinazione);
 		model.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
+		model.addAttribute("listaRicette", ricService.findAll());
 		LOGGER.info("Ordinazione consegnata!");
 		return "admin";
 
@@ -154,6 +159,7 @@ public class PasticceriaController {
 	@GetMapping("/indietroAdmin")
 	public String indietro(Model model) {
 		model.addAttribute("listaOrdinazioni", ordinazioneService.findByOrderByConsegnaAsc());
+		model.addAttribute("listaRicette", ricService.findAll());
 		return "admin";
 	}
 

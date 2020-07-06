@@ -103,7 +103,7 @@ public class CassaController {
 			nuovoCliente.setNome(nome);
 			clienteService.add(nuovoCliente);
 			model.addAttribute(nuovoCliente);
-			LOGGER.info("Nuovo utente creato");
+			LOGGER.info(String.format("Nuovo utente creato, trattasi di quel grandissimo di %s", nuovoCliente.getNome()));
 			return "cliente";
 		}
 		return "index";

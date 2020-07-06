@@ -19,47 +19,84 @@
 	<form action="azioneAdmin" method="post">
 		<button type="submit" class="btn btn-primary" name="azione" value="0">Nuovo
 			Ingrediente</button>
-		<button type="submit" class="btn btn-primary"name="azione" value="1">Nuova Ricetta</button>
-		<button type="submit" class="btn btn-primary"name="azione" value="2">Nuovo dolce</button>
-<button type="submit"class="btn btn-primary" name="azione" value="3">Modifica
+		<button type="submit" class="btn btn-primary" name="azione" value="1">Nuova
+			Ricetta</button>
+		<button type="submit" class="btn btn-primary" name="azione" value="2">Nuovo
+			dolce</button>
+		<button type="submit" class="btn btn-primary" name="azione" value="3">Modifica
 			Ingrediente</button>
 	</form>
 
 	<br>
+	<br>
+	<div class="container my-5">
+		<h2 class="mb-5">Lista Ordini e Ricette</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<table class="table table-striped table-responsive-md">
+					<thead>
+						<tr>
+							<th>Id Ordinazione</th>
+							<th>Costo</th>
+							<th>Sconto</th>
+							<th>Data Consegna</th>
+							<th>Modifica</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ordinazione : ${listaOrdinazioni}">
+							<td th:text="${ordinazione.id}"></td>
+							<td th:text="${ordinazione.costo}"></td>
+							<td th:text="${ordinazione.sconto}"></td>
+							<td th:text="${ordinazione.consegna}"></td>
 
-	<table class="table table-striped table-responsive-md">
-		<thead>
-			<tr>
-				<th>Id Ordinazione</th>
-				<th>Costo</th>
-				<th>Sconto</th>
-				<th>Data Consegna</th>
-				<th>Modifica</th>
-			</tr>
-		</thead>
-		<tbody>
-			 <tr  th:each="ordinazione : ${listaOrdinazioni}">
-				<td th:text="${ordinazione.id}"></td>
-				<td th:text="${ordinazione.costo}"></td>
-				<td th:text="${ordinazione.sconto}"></td>
-				<td th:text="${ordinazione.consegna}"></td>
+							<td th:if="${ordinazione.consegna == null }">
+
+								<form action="consegna" method="post">
+
+									<button type="submit" name="consegna">consegna</button>
+									<input type="hidden" name="id" id="id"
+										th:value="${ordinazione.id}">
+								</form>
+							</td>
+
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="col-md-6">
 				
-				   <td th:if="${ordinazione.consegna == null }">
-				  
-					<form action="consegna" method="post">
+				<table class="table table-striped table-responsive-md">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Costo</th>
+							<th>Tempo</th>
+							<th>Lista Ingredienti</th>
 
-						<button type="submit" name="consegna">consegna</button>
-						<input type="hidden" name="id" id="id"
-							th:value="${ordinazione.id}">
-					</form>
-				</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ricetta : ${listaRicette}">
+							<td th:text="${ricetta.nome}"></td>
+							<td th:text="${ricetta.costo}"></td>
+							<td th:text="${ricetta.tempo}"></td>
+							<td><form action="viewIngredienti" method="post">
 
+									<button type="submit" name="listaIngredienti">Ingredienti</button>
+									<input type="hidden" name="id" id="id" th:value="${ricetta.id}">
 
-			</tr>
-		</tbody>
-	</table>
-<form action="home">
-<button type="submit"class="btn btn-secondary">Torna in Home</button>
-</form>	
+								</form></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<form action="home">
+		<button type="submit" class="btn btn-secondary">Torna in Home</button>
+	</form>
 </body>
 </html>
