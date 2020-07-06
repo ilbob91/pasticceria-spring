@@ -47,8 +47,8 @@ public class RicettaServiceDAOImpl implements RicettaServiceDAO {
 	@Override
 	public List<Ricetta> findPresenti() {
 		List<Ricetta> presenti = new ArrayList<>();
-		int count = 0;
 		for (Ricetta ricetta : ricettaRepo.findAll()) {
+			int count = 0;
 			for (Ingrediente ingrediente : ricetta.getListaIngredienti()) {
 				if (ingrediente.getPresente()) {
 					count++;
@@ -56,6 +56,7 @@ public class RicettaServiceDAOImpl implements RicettaServiceDAO {
 			}
 			if (count == ricetta.getListaIngredienti().size()) {
 				presenti.add(ricetta);
+				
 			}
 		}
 		return presenti;

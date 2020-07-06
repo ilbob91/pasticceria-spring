@@ -37,10 +37,10 @@
 
 					<div class="form-group col-md-6">
 						<select name="id">
-
-							<option th:each="ricetta : ${listaRicette}"
+<th:block th:each="ricetta : ${listaRicette}">
+							<option 
 								th:value="${ricetta.id}" th:utext="${ricetta.nome}"></option>
-							
+							</th:block>
 						</select>
 
 					</div>
