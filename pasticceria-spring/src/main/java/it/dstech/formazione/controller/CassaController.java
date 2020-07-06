@@ -3,6 +3,8 @@ package it.dstech.formazione.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,8 @@ import it.dstech.formazione.services.OrdinazioneServiceDAO;
 
 @Controller
 public class CassaController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CassaController.class);
 
 	@Autowired
 	private ClienteServiceDAO clienteService;
@@ -69,7 +73,7 @@ public class CassaController {
 		clienteService.add(cliente);
 		model.addAttribute("listaOrdinazioni", cliente.getListaOrdinazioni());
 		model.addAttribute("cliente", cliente);
-
+		LOGGER.info("Creata nuova ordinazione");
 		return "cliente";
 
 	}
@@ -84,6 +88,7 @@ public class CassaController {
 			if (cliente != null) {
 				model.addAttribute("listaOrdinazioni", cliente.getListaOrdinazioni());
 				model.addAttribute(cliente);
+				LOGGER.info("Accesso effettuato all'applicazione");
 				return "cliente";
 			}
 			return "loginRegistrazione";
@@ -98,6 +103,7 @@ public class CassaController {
 			nuovoCliente.setNome(nome);
 			clienteService.add(nuovoCliente);
 			model.addAttribute(nuovoCliente);
+			LOGGER.info("Nuovo utente creato");
 			return "cliente";
 		}
 		return "index";
@@ -114,20 +120,22 @@ public class CassaController {
 		return "nuova-ordinazione";
 
 	}
+
 	@PostMapping("/viewDolci")
-	public String viewDolc(@RequestParam("id") long id, @RequestParam("idCliente") long idCliente,Model model) {
-	  Ordinazione ordinazione = ordinazioneService.findById(id);
-	  List<Dolce> lista = ordinazione.getListaDolci();
-	  model.addAttribute("listaDolci", lista);
-	  model.addAttribute("idCliente", idCliente);
-	  return "view-dolci";
+	public String viewDolc(@RequestParam("id") long id, @RequestParam("idCliente") long idCliente, Model model) {
+		Ordinazione ordinazione = ordinazioneService.findById(id);
+		List<Dolce> lista = ordinazione.getListaDolci();
+		model.addAttribute("listaDolci", lista);
+		model.addAttribute("idCliente", idCliente);
+		return "view-dolci";
 	}
+
 	@GetMapping("/indietro")
-	public String indietro(@RequestParam("idCliente") long id,Model model) {
+	public String indietro(@RequestParam("idCliente") long id, Model model) {
 		Cliente cliente = clienteService.findById(id);
 		model.addAttribute("listaOrdinazioni", cliente.getListaOrdinazioni());
 		model.addAttribute("cliente", cliente);
-return "cliente";
+		return "cliente";
 	}
-	
+
 }
